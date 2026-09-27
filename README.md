@@ -1,137 +1,141 @@
 # Impostor Who? — yuklab olish sahifasi
 
-Bu papka — **Impostor Who?** o'yinining APK faylini tarqatish uchun tayyor landing sayt.
-Faqat 3 ta fayl: `index.html`, `og-image.png`, `download/impostor-who-v1.0.apk`.
-Build qadami, npm, framework — hech narsa kerak emas. Oddiy statik sayt.
+**Impostor Who?** o'yinining tarqatish sayti: Android uchun **APK** va iOS uchun **IPA**.
+Statik sayt — build qadami, npm, framework kerak emas.
 
 ```
 impostor-who-site/
-├── index.html                        # butun sayt (HTML + CSS + JS, bitta faylda)
-├── og-image.png                      # Telegram/WhatsApp havola ko'rinishi uchun rasm
-├── README.md                         # shu fayl
-├── download/
-│   └── impostor-who-v1.0.apk         # tarqatiladigan ilova (1.2 MB, release)
-│
-└── play/                             # WEB (PWA) versiya — iOS, Android, kompyuter
-    ├── index.html                    # o'yin sahifasi
-    ├── game.js                       # butun o'yin mantig'i (Android ilova bilan bir xil)
-    ├── style.css                     # dizayn (ilovaning o'z uslubi)
-    ├── data.js                       # so'zlar bazasi — GameData.kt dan AVTOMATIK eksport
-    ├── manifest.webmanifest          # PWA: bosh ekranga qo'shish
-    ├── sw.js                         # service worker: offline ishlash
-    ├── icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
-    └── tools/export-data.py          # GameData.kt -> data.js eksport qilgich
+├── index.html                            # butun sayt (HTML + CSS + JS, bitta faylda)
+├── og-image.png                          # Telegram/WhatsApp havola ko'rinishi uchun rasm
+├── README.md                             # shu fayl
+└── download/
+    ├── impostor-who-v1.0.apk             # Android (1.2 MB, release, o'z kaliti bilan imzolangan)
+    └── impostor-who-v1.0-ios.ipa         # iOS (11.6 MB, IMZOSIZ — Sideloadly bilan o'rnatiladi)
 ```
-
-> 🌐 Saytda ikkita yo'l bor: **APK** (Android, offline ilova) va **`/play/`** — brauzerda
-> o'ynaladigan versiya. iPhone foydalanuvchisi uchun asosiy tugma avtomatik `/play/` ga
-> o'tadi (APK iPhone'da o'rnatilmaydi).
 
 ---
 
-## 1. Lokal sinov
+## 1. Saytda nima bor
 
-Papka ichida:
+| Bo'lim | Nima |
+|---|---|
+| Hero | Ikkita tugma: **Android APK** (lime) va **iOS IPA** (oq) |
+| 📱 Android'ga o'rnatish | 4 qadam + Play Protect ogohlantirishi haqida tushuntirish |
+| 🍎 iOS'ga o'rnatish | 4 qadam (Sideloadly) + 7 kunlik cheklov haqida ogohlantirish |
+| Imkoniyatlar | 9 ta karta |
+| Savol-javob | 6 ta savol |
+| SHA-256 | APK tekshiruv kodi (nusxa olish tugmasi bilan) |
+
+**iPhone aniqlash:** sahifa JS orqali iOS'ni aniqlaydi va asosiy tugmani avtomatik
+iOS `.ipa` faylga o'tkazadi (iPhone'da APK o'rnatib bo'lmaydi).
+
+---
+
+## 2. Lokal sinov
 
 ```bash
 python -m http.server 8080
+# brauzerda: http://localhost:8080
 ```
-
-So'ng brauzerda `http://localhost:8080` ni oching.
-(`index.html` ni to'g'ridan-to'g'ri ikki marta bosib ochish ham mumkin, lekin
-`file://` rejimida QR kod ko'rinmaydi — bu normal.)
 
 ---
 
-## 2. Internetga joylash (3 variant)
+## 3. Internetga joylash
 
-### A) Netlify Drop — eng tez, 30 sekund ⭐
-1. https://app.netlify.com/drop saytiga kiring
-2. **`impostor-who-site` papkasini** oynaga tashlang (drag & drop)
-3. Tayyor — havola olasiz: `https://xxxx-yyyy.netlify.app`
-4. Sozlamalar → *Site name* → `impostor-who` kabi chiroyli nom berish mumkin
+Sayt allaqachon GitHub Pages'da: **https://mikey0016.github.io/impostor-who/**
 
-### B) GitHub Pages — bepul va doimiy
+Yangilash uchun:
+
 ```bash
-cd impostor-who-site
-git init
-git add .
-git commit -m "Impostor Who? landing page"
-git branch -M main
-git remote add origin https://github.com/<USERNAME>/impostor-who.git
-git push -u origin main
+git add -A
+git commit -m "yangilanish"
+git push
 ```
-So'ng GitHub'da: **Settings → Pages → Source: Deploy from a branch → main / (root) → Save**.
-1-2 daqiqadan keyin: `https://<USERNAME>.github.io/impostor-who/`
 
-> Maslahat: saytni ilova reposining `docs/` papkasiga qo'ysangiz, Pages'ni `main /docs` qilib
-> sozlash mumkin — hamma narsa bitta joyda bo'ladi.
-
-### C) Vercel / Cloudflare Pages
-```bash
-npx vercel deploy --prod          # Vercel
-npx wrangler pages deploy .       # Cloudflare Pages
-```
-Ikkalasi ham bepul, HTTPS avtomatik.
+1 daqiqadan keyin o'zgarish saytda ko'rinadi.
 
 ---
 
-## 3. Nimaga e'tibor berish
+## 4. Yangi versiya chiqqanda
 
-| Narsa | Holat |
-|---|---|
-| HTTPS | Netlify/Vercel/GitHub Pages avtomatik beradi — APK yuklab olish uchun shart emas, lekin QR va ishonch uchun yaxshi |
-| Fayl turi (MIME) | `.apk` ko'p hostlarda `application/vnd.android.package-archive` bo'ladi; bo'lmasa ham `<a download>` atributi yuklab olishni majburan boshlaydi |
-| Fayl hajmi | 1.2 MB — GitHub'ning 100 MB limitidan ancha kichik, muammo yo'q |
-| Domen | `impostorwho.uz` kabi domen ~$10/yil; hozircha bepul subdomen yetarli |
+1. **Android APK** — `ImpostorWHO` reposida:
+   ```bash
+   cd ImpostorWHO
+   ./gradlew :app:assembleRelease        # keystore.properties kerak
+   # -> app/build/outputs/apk/release/app-release.apk
+   ```
+   Faylni `download/impostor-who-v1.1.apk` sifatida qo'ying.
+
+2. **iOS IPA** — GitHub Actions avtomatik yasaydi:
+   ```bash
+   gh run list --limit 1
+   gh run download <RUN_ID> -n impostor-who-ios-ipa
+   # -> ImpostorWho-unsigned.ipa
+   ```
+   Faylni `download/impostor-who-v1.1-ios.ipa` sifatida qo'ying.
+
+3. `index.html` da yangilang:
+   - `impostor-who-v1.0.apk` / `impostor-who-v1.0-ios.ipa` → yangi fayl nomlari
+   - `1.2 MB` / `11.6 MB` → yangi hajmlar
+   - `v1.0` → yangi versiya raqami
+   - SHA-256 kod (pastdagi buyruq bilan olinadi)
+
+4. SHA-256:
+   ```bash
+   sha256sum download/impostor-who-v1.1.apk
+   ```
 
 ---
 
-## 4. Yangi versiya chiqqanda nima o'zgartiriladi
+## 5. Hozirgi fayllar
 
-1. Yangi APK'ni `download/` ga qo'ying: `impostor-who-v1.1.apk`
-2. `index.html` da quyidagilarni yangilang (Ctrl+F bilan qidiring):
-   - `impostor-who-v1.0.apk` → yuklab olish havolalari (4 joyda: nav, asosiy tugma, footer, mobil panel)
-   - `1.2 MB` → yangi hajm (4 joyda)
-   - `v1.0` → yangi versiya raqami (bir necha joyda)
-   - `674324...` → yangi SHA-256 (pastdagi buyruq bilan olinadi)
-3. Eskisini o'chirib tashlamang — eski foydalanuvchilar uchun qoldirish mumkin.
-4. Saytni qaytadan deploy qiling.
-
-SHA-256 ni hisoblash:
-```bash
-sha256sum download/impostor-who-v1.1.apk
-```
-
----
-
-## 5. Hozirgi APK haqida (release build)
+### Android APK
 
 | | |
 |---|---|
 | Versiya | 1.0 (versionCode 1) |
 | Paket nomi | `com.example.impostorwho` |
 | Hajm | 1 227 618 bayt (1.2 MB) |
-| Imzo | APK Signature Scheme **v2** — `CN=Impostor Who` (o'z release kaliti) |
+| Imzo | APK Signature Scheme **v2** — `CN=Impostor Who` |
 | Minimal Android | 7.0 (API 24) |
 | SHA-256 | `6743244981846f8c514b03ad038362a430eccde1f837fc0bf48748628e172ff4` |
 
-Build sozlamalari: R8 (`optimization.enable = true`) + resurs shrink yoqilgan —
-shu sababli hajm debug build'dan **15 barobar kichik** (18.9 MB → 1.2 MB).
+> ⚠️ Bu APK **KMP migratsiyasidan oldin** yig'ilgan. Yangi strukturadan qayta yig'ish kerak
+> (kod bir xil, lekin ikonkalar glif matnlar bilan almashtirilgan).
 
-### 🔑 Kalit haqida — eng muhim narsa
+### iOS IPA
 
-Release imzolash kaliti: `ImpostorWHO/keystore/impostor-who-release.jks`
-(parollar `ImpostorWHO/keystore.properties` da; ikkisi ham `.gitignore` da).
+| | |
+|---|---|
+| Imzo | ⚠️ **IMZOSIZ** — Sideloadly/AltStore Apple ID bilan imzolaydi |
+| Hajm | 11 584 137 bayt (11.6 MB) |
+| Ichida | `Payload/ImpostorWho.app` (arm64, Release) |
+| Minimal iOS | 15.0 |
+| SHA-256 | `98c066d57011e25d554903a2e6e010a049fbc812157f5b393e29da4d010f62c3` |
 
-> ⛔ **Bu kalitni yo'qotsangiz, ilovani hech qachon yangilay olmaysiz** — Google Play ham,
-> foydalanuvchilar ham yangi versiyani o'rnata olmaydi (imzo mos kelmaydi).
-> Zaxira nusxasini xavfsiz joyga (parol menejeri yoki shifrlangan arxivga) saqlang.
->
-> Sertifikat barmoq izi (SHA-256):
-> `59:A0:B3:62:58:BE:E3:C8:08:C7:8C:EA:E7:14:B9:B5:37:63:EB:F0:A8:FB:9B:61:A7:F5:DD:ED:DB:FA:20:0E`
-> Amal qilish muddati: 2054-02-12
+**Nega imzosiz?** Apple'da imzolash uchun Mac + Apple Developer akkaunti ($99/yil) kerak.
+Imzosiz `.ipa` faylni foydalanuvchi o'z Apple ID'si bilan **bepul** imzolaydi
+(Sideloadly orqali), lekin imzo **7 kunda** muddati tugaydi — qayta imzolash kifoya.
 
-> ℹ️ Agar biror kishi saytdagi **eski debug** versiyani o'rnatib olgan bo'lsa,
-> yangi release versiyani o'rnatishdan oldin uni **o'chirib tashlashi** kerak
-> (imzo kaliti boshqa).
+---
+
+## 6. ⚠️ Eng muhim: keystore
+
+Android release kaliti: `ImpostorWHO/keystore/impostor-who-release.jks`
+(parollar `ImpostorWHO/keystore.properties` da; ikkisi ham git'ga tushmaydi).
+
+> ⛔ **Yo'qolsa, Android ilovani hech qachon yangilab bo'lmaydi.** Zaxira nusxasini saqlang.
+
+Sertifikat barmoq izi (SHA-256):
+`59:A0:B3:62:58:BE:E3:C8:08:C7:8C:EA:E7:14:B9:B5:37:63:EB:F0:A8:FB:9B:61:A7:F5:DD:ED:DB:FA:20:0E`
+
+---
+
+## 7. Tarix
+
+- **1-commit:** dastlabki sayt (faqat APK) + brauzerda o'ynash (PWA) versiyasi
+- **2-commit:** release APK (R8, o'z kaliti bilan imzolangan)
+- **3-commit:** iOS `.ipa` qo'shildi, brauzerda o'ynash **olib tashlandi**
+
+> ℹ️ PWA versiyasi (brauzerda o'ynash) git tarixida saqlanadi — kerak bo'lsa qaytarish mumkin:
+> `git show <commit>:play/index.html`
