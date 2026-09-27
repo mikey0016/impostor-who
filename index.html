@@ -54,6 +54,7 @@
     background:var(--charcoal);color:#fff;text-decoration:none;
     font-weight:800;font-size:13px;padding:10px 16px;border-radius:50px;
   }
+  .btn-mini.ghost{background:#fff;color:var(--charcoal);border:1px solid var(--line)}
 
   /* ---------- BUTTONS ---------- */
   .btn{
@@ -68,6 +69,7 @@
   .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(198,244,50,.6)}
   .btn:active{transform:scale(.97)}
   .btn svg{flex:0 0 auto}
+  .btn.secondary{background:#fff;border:2px solid var(--charcoal);box-shadow:0 8px 22px rgba(0,0,0,.06);margin-top:12px}
   .btn small{display:block;font-weight:700;font-size:12px;opacity:.65;letter-spacing:0}
   .btn .lbl{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
 
@@ -260,7 +262,8 @@
   <div class="wrap">
     <div class="logo"><span class="logo-mark">IW</span> IMPOSTOR WHO?</div>
     <span class="spacer"></span>
-    <a class="btn-mini" href="download/impostor-who-v1.0.apk" download type="application/vnd.android.package-archive">⬇ APK yuklab olish</a>
+    <a class="btn-mini ghost" href="play/">▶ O'ynash</a>
+    <a class="btn-mini" href="download/impostor-who-v1.0.apk" download type="application/vnd.android.package-archive">⬇ APK</a>
   </div>
 </nav>
 
@@ -281,14 +284,19 @@
         <span class="lbl"><span>APK YUKLAB OLISH</span><small>1.2 MB · Android 7.0+ · v1.0</small></span>
       </a>
 
+      <a class="btn secondary" href="play/" id="web-dl">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#1A1A1A"><path d="M8 5v14l11-7z"/></svg>
+        <span class="lbl"><span>BRAUZERDA O'YNASH</span><small>iPhone · Android · kompyuter — yuklab olish shart emas</small></span>
+      </a>
+
       <div id="ios-note">
         <div class="warn">
           <div class="em">📱</div>
           <div>
             <h3>Siz iPhone / iPad'dasiz</h3>
-            <p>Bu fayl <b>APK</b> — u faqat Android uchun. iPhone'ga o'rnatib bo'lmaydi.
-               Do'stingizga (Android telefoni bo'lgan kishiga) yuboring yoki Android qurilmadan oching.
-               iPhone versiyasi hozircha ishlab chiqilmoqda.</p>
+            <p>APK fayl faqat Android uchun — iPhone'ga o'rnatib bo'lmaydi. Lekin <b>xafa bo'lmang</b>:
+               o'yin iPhone'da ham ishlaydi! Quyidagi <b>“Brauzerda o'ynash”</b> tugmasini bosing —
+               Safari'da ochiladi, “Bosh ekranga qo'shish” qilsangiz ilova kabi ishlaydi va internetsiz ham o'ynaladi.</p>
           </div>
         </div>
       </div>
@@ -386,6 +394,7 @@
       <div class="card feat"><div class="em">🎨</div><h3>Chiroyli va silliq</h3><p>Gradient kartalar, animatsiyalar, “bosib ushlab ko'rish” mexanikasi.</p></div>
       <div class="card feat"><div class="em">💾</div><h3>Sozlamalar saqlanadi</h3><p>O'yinchilar ro'yxati va tanlovingiz eslab qolinadi — har safar qaytadan yozmaysiz.</p></div>
       <div class="card feat"><div class="em">🚫</div><h3>Reklama yo'q, to'lov yo'q</h3><p>Bepul. Hisob yaratish, ro'yxatdan o'tish, internet talab qilinmaydi.</p></div>
+      <div class="card feat"><div class="em">🌐</div><h3>Brauzerda ham ishlaydi</h3><p>iPhone, Android yoki kompyuter — hech narsa yuklab olmasdan o'ynang. <a href="play/" style="font-weight:800">Ochish →</a></p></div>
     </div>
   </div>
 </section>
@@ -424,7 +433,9 @@
       </details>
       <details>
         <summary>iPhone'da ishlaydimi?</summary>
-        <p>Yo'q, bu APK fayl — faqat Android uchun. iPhone versiyasi hozircha yo'q, lekin rejada bor.</p>
+        <p><b>Ha, brauzerda ishlaydi</b> — <a href="play/" style="font-weight:800">shu sahifani</a> iPhone'dagi Safari'da oching.
+           “Bosh ekranga qo'shish” qilsangiz ilova kabi ochiladi va internetsiz ishlaydi.
+           Native iOS ilova (App Store'dan) hozircha yo'q — u Mac va Apple Developer akkaunti ($99/yil) talab qiladi.</p>
       </details>
       <details>
         <summary>Qaysi Android versiyalarda ishlaydi?</summary>
@@ -460,7 +471,7 @@
 </footer>
 
 <div class="mobilebar">
-  <a class="btn" href="download/impostor-who-v1.0.apk" download="impostor-who-v1.0.apk" type="application/vnd.android.package-archive">
+  <a class="btn" id="mob-dl" href="download/impostor-who-v1.0.apk" download="impostor-who-v1.0.apk" type="application/vnd.android.package-archive">
     ⬇ APK YUKLAB OLISH · 1.2 MB
   </a>
 </div>
@@ -476,6 +487,22 @@
   // iPhone foydalanuvchisiga ogohlantirish
   if (isIOS) {
     document.getElementById('ios-note').style.display = 'block';
+    // iPhone'da APK o'rnatilmaydi — asosiy tugmani brauzer versiyasiga o'tkazamiz
+    ['main-dl', 'mob-dl'].forEach(function (elId) {
+      var el = document.getElementById(elId);
+      if (!el) return;
+      el.setAttribute('href', 'play/');
+      el.removeAttribute('download');
+      el.removeAttribute('type');
+      var lbl = el.querySelector('.lbl span');
+      var sub = el.querySelector('small');
+      if (lbl) {
+        lbl.textContent = "▶ BRAUZERDA O'YNASH";
+        if (sub) sub.textContent = "iPhone'da ishlaydi · yuklab olish shart emas";
+      } else {
+        el.textContent = "▶ BRAUZERDA O'YNASH";
+      }
+    });
   }
 
   // Android foydalanuvchisi uchun "tayyor" holati
