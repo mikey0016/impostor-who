@@ -1,16 +1,16 @@
-# Impostor Who? — yuklab olish sahifasi
+# Ayg'oqchi — yuklab olish sahifasi
 
-**Impostor Who?** o'yinining tarqatish sayti: Android uchun **APK** va iOS uchun **IPA**.
+**Ayg'oqchi** o'yinining tarqatish sayti: Android uchun **APK** va iOS uchun **IPA**.
 Statik sayt — build qadami, npm, framework kerak emas.
 
 ```
-impostor-who-site/
+impostor-who/
 ├── index.html                            # butun sayt (HTML + CSS + JS, bitta faylda)
 ├── og-image.png                          # Telegram/WhatsApp havola ko'rinishi uchun rasm
 ├── README.md                             # shu fayl
 └── download/
-    ├── impostor-who-v1.0.apk             # Android (1.2 MB, release, o'z kaliti bilan imzolangan)
-    └── impostor-who-v1.0-ios.ipa         # iOS (11.6 MB, IMZOSIZ — Sideloadly bilan o'rnatiladi)
+    ├── aygoqchi-v1.0.apk                 # Android (18.9 MB, DEBUG imzo)
+    └── aygoqchi-v1.0-ios.ipa             # iOS (11.6 MB, IMZOSIZ — Sideloadly bilan o'rnatiladi)
 ```
 
 ---
@@ -58,31 +58,31 @@ git push
 
 ## 4. Yangi versiya chiqqanda
 
-1. **Android APK** — `ImpostorWHO` reposida:
+1. **Android APK** — `ImpostorWHO` reposida (kodda nom `Ayg'oqchi`, paket `uz.aygoqchi`):
    ```bash
    cd ImpostorWHO
    ./gradlew :app:assembleRelease        # keystore.properties kerak
    # -> app/build/outputs/apk/release/app-release.apk
    ```
-   Faylni `download/impostor-who-v1.1.apk` sifatida qo'ying.
+   Faylni `download/aygoqchi-v1.1.apk` sifatida qo'ying.
 
 2. **iOS IPA** — GitHub Actions avtomatik yasaydi:
    ```bash
    gh run list --limit 1
-   gh run download <RUN_ID> -n impostor-who-ios-ipa
-   # -> ImpostorWho-unsigned.ipa
+   gh run download <RUN_ID> -n aygoqchi-ios-ipa
+   # -> Aygoqchi-unsigned.ipa
    ```
-   Faylni `download/impostor-who-v1.1-ios.ipa` sifatida qo'ying.
+   Faylni `download/aygoqchi-v1.1-ios.ipa` sifatida qo'ying.
 
 3. `index.html` da yangilang:
-   - `impostor-who-v1.0.apk` / `impostor-who-v1.0-ios.ipa` → yangi fayl nomlari
-   - `1.2 MB` / `11.6 MB` → yangi hajmlar
+   - `aygoqchi-v1.0.apk` / `aygoqchi-v1.0-ios.ipa` → yangi fayl nomlari
+   - `18.9 MB` / `11.6 MB` → yangi hajmlar
    - `v1.0` → yangi versiya raqami
    - SHA-256 kod (pastdagi buyruq bilan olinadi)
 
 4. SHA-256:
    ```bash
-   sha256sum download/impostor-who-v1.1.apk
+   sha256sum download/aygoqchi-v1.1.apk
    ```
 
 ---
@@ -94,14 +94,14 @@ git push
 | | |
 |---|---|
 | Versiya | 1.0 (versionCode 1) |
-| Paket nomi | `com.example.impostorwho` |
-| Hajm | 1 227 618 bayt (1.2 MB) |
-| Imzo | APK Signature Scheme **v2** — `CN=Impostor Who` |
+| Paket nomi | `com.example.impostorwho` (eski build — yangi kodda `uz.aygoqchi`) |
+| Hajm | 18 928 031 bayt (18.9 MB) |
+| Imzo | ⚠️ **DEBUG kalit** (`CN=Android Debug`) — release kalitga o'tkazish uchun qayta yig'ish kerak |
 | Minimal Android | 7.0 (API 24) |
-| SHA-256 | `6743244981846f8c514b03ad038362a430eccde1f837fc0bf48748628e172ff4` |
+| SHA-256 | `9de9586309b60146844b369fff433a679bb7720c6b58579ae24a82cddb9c4fb2` |
 
-> ⚠️ Bu APK **KMP migratsiyasidan oldin** yig'ilgan. Yangi strukturadan qayta yig'ish kerak
-> (kod bir xil, lekin ikonkalar glif matnlar bilan almashtirilgan).
+> ℹ️ Kod `Ayg'oqchi` / `uz.aygoqchi` ga o'tkazildi — saytdagi APK keyingi build'da
+> yangilanadi (hozirgisi eski nomdagi build).
 
 ### iOS IPA
 
@@ -109,7 +109,7 @@ git push
 |---|---|
 | Imzo | ⚠️ **IMZOSIZ** — Sideloadly/AltStore Apple ID bilan imzolaydi |
 | Hajm | 11 584 137 bayt (11.6 MB) |
-| Ichida | `Payload/ImpostorWho.app` (arm64, Release) |
+| Ichida | `Payload/ImpostorWho.app` (arm64, Release — eski nomdagi build) |
 | Minimal iOS | 15.0 |
 | SHA-256 | `98c066d57011e25d554903a2e6e010a049fbc812157f5b393e29da4d010f62c3` |
 
@@ -136,6 +136,9 @@ Sertifikat barmoq izi (SHA-256):
 - **1-commit:** dastlabki sayt (faqat APK) + brauzerda o'ynash (PWA) versiyasi
 - **2-commit:** release APK (R8, o'z kaliti bilan imzolangan)
 - **3-commit:** iOS `.ipa` qo'shildi, brauzerda o'ynash **olib tashlandi**
+- **APK qaytarildi:** 1.2 MB release o'rniga 18.9 MB debug versiya (foydalanuvchi so'rovi)
+- **Nom o'zgardi:** `Impostor Who?` → **Ayg'oqchi** (mualliflik huquqi sababli);
+  kodda paket `uz.aygoqchi`, fayllar `aygoqchi-v1.0.*`
 
 > ℹ️ PWA versiyasi (brauzerda o'ynash) git tarixida saqlanadi — kerak bo'lsa qaytarish mumkin:
 > `git show <commit>:play/index.html`
