@@ -9,9 +9,23 @@ impostor-who-site/
 ├── index.html                        # butun sayt (HTML + CSS + JS, bitta faylda)
 ├── og-image.png                      # Telegram/WhatsApp havola ko'rinishi uchun rasm
 ├── README.md                         # shu fayl
-└── download/
-    └── impostor-who-v1.0.apk         # tarqatiladigan ilova (1.2 MB, release)
+├── download/
+│   └── impostor-who-v1.0.apk         # tarqatiladigan ilova (1.2 MB, release)
+│
+└── play/                             # WEB (PWA) versiya — iOS, Android, kompyuter
+    ├── index.html                    # o'yin sahifasi
+    ├── game.js                       # butun o'yin mantig'i (Android ilova bilan bir xil)
+    ├── style.css                     # dizayn (ilovaning o'z uslubi)
+    ├── data.js                       # so'zlar bazasi — GameData.kt dan AVTOMATIK eksport
+    ├── manifest.webmanifest          # PWA: bosh ekranga qo'shish
+    ├── sw.js                         # service worker: offline ishlash
+    ├── icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
+    └── tools/export-data.py          # GameData.kt -> data.js eksport qilgich
 ```
+
+> 🌐 Saytda ikkita yo'l bor: **APK** (Android, offline ilova) va **`/play/`** — brauzerda
+> o'ynaladigan versiya. iPhone foydalanuvchisi uchun asosiy tugma avtomatik `/play/` ga
+> o'tadi (APK iPhone'da o'rnatilmaydi).
 
 ---
 
