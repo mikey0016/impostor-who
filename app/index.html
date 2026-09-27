@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ayg'oqchi — web platforma</title>
+<meta name="description" content="Ayg'oqchi — akkaunt oching, coin yig'ing, marketdan mavzular oling, reytingda birinchi bo'ling!">
+<meta name="theme-color" content="#F7F7F5">
+<meta name="color-scheme" content="light">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23C6F432'/%3E%3Ctext x='32' y='45' font-size='36' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%231A1A1A'%3EA%3C/text%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Ayg'oqchi">
+<link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-gtheme="default">
+
+<!-- Firebase sozlanmagan bo'lsa -->
+<div id="setup-error" style="display:none">
+  <div class="wrap" style="padding:40px 16px">
+    <div class="card auth-card">
+      <h1>🔧 Ulanish kerak</h1>
+      <p class="sub">Login ishlashi uchun 5 daqiqalik bepul sozlash kifoya:</p>
+      <ol style="font-size:14px;color:#444;padding-left:20px">
+        <li><b>FIREBASE_SETUP.md</b> faylni oching (repoda, app/ yonida)</li>
+        <li>Firebase loyihasi oching → Email login + Firestore yoqing</li>
+        <li>Kalitlarni <b>app/js/firebase-config.js</b> ga qo'ying, push qiling</li>
+      </ol>
+      <p class="sub">Sozlangach shu sahifa avtomatik ishlaydi. Android ilovani esa <a href="../">bosh sahifadan</a> yuklab olish mumkin.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Kirish / ro'yxat -->
+<div id="auth-view" style="display:none">
+  <div class="wrap">
+    <div class="card auth-card" style="margin-top:34px">
+      <h1>🕵️ Ayg'oqchi</h1>
+      <p class="sub">Akkaunt oching — coin yig'ing, marketdan harid qiling!</p>
+      <div class="seg">
+        <button id="tab-login" class="active">Kirish</button>
+        <button id="tab-register">Ro'yxat</button>
+      </div>
+      <div class="field" id="name-row" style="display:none">
+        <input type="text" id="auth-name" placeholder="Ismingiz" maxlength="20" autocomplete="nickname">
+      </div>
+      <div class="field">
+        <input type="email" id="auth-email" placeholder="Email" autocomplete="email">
+      </div>
+      <div class="field">
+        <input type="password" id="auth-pass" placeholder="Parol (kamida 6 belgi)" autocomplete="current-password">
+      </div>
+      <button class="cta" id="auth-go">Kirish</button>
+      <button class="g-btn" id="auth-google">🔵 Google bilan kirish</button>
+      <p class="err" id="auth-err"></p>
+      <div class="bonus">🎁 Ro'yxatda <b>+100 coin</b> bonus! Har o'yin +10, kunlik kirish +50.</div>
+    </div>
+    <footer><a href="../">← Bosh sahifa</a> · Android APK yuklab olish</footer>
+  </div>
+</div>
+
+<!-- Asosiy hub -->
+<div id="hub" style="display:none">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="logo"><span class="logo-mark">A</span></div>
+      <span id="tb-name">…</span>
+      <span class="coin-pill"><b id="tb-coins">🪙 0</b></span>
+      <button class="link-btn" id="logout-btn">Chiqish</button>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="wrap">
+      <button class="tab active" data-tab="game">🎮 O'yin</button>
+      <button class="tab" data-tab="market">🛒 Market</button>
+      <button class="tab" data-tab="top">🏆 Reyting</button>
+      <button class="tab" data-tab="profile">👤 Profil</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- O'YIN -->
+    <div id="tab-game">
+      <div id="app"></div>
+      <div id="boot">Yuklanmoqda…</div>
+    </div>
+
+    <!-- MARKET -->
+    <div id="tab-market" style="display:none">
+      <div id="market-list"></div>
+      <div class="card" style="padding:16px;margin:14px 0">
+        <div class="muted">💡 Coin qanday topiladi? Har bir tugallangan o'yin <b>+10</b>, ayg'oqchi yutsa <b>+15</b>, jamoa yutsa <b>+5</b>, kunlik bonus <b>+50</b>. Omadli tanga (🍀) hammasini 2x qiladi.</div>
+      </div>
+    </div>
+
+    <!-- REYTING -->
+    <div id="tab-top" style="display:none">
+      <div class="sec-t">🏆 Top-20 — eng boy o'yinchilar</div>
+      <div id="top-list"></div>
+    </div>
+
+    <!-- PROFIL -->
+    <div id="tab-profile" style="display:none">
+      <div class="card pf-head">
+        <div class="pf-ava" id="pf-ava">?</div>
+        <div>
+          <div style="font-size:19px;font-weight:900" id="pf-name">…</div>
+          <div class="muted">🪙 <b id="pf-coins">0</b> coin</div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="card stat"><div class="v" id="pf-games">0</div><div class="k">O'yinlar</div></div>
+        <div class="card stat"><div class="v" id="pf-wins">0</div><div class="k">G'alabalar</div></div>
+        <div class="card stat"><div class="v" id="pf-spy">0</div><div class="k">Ayg'oqchi yutuqlari</div></div>
+        <div class="card stat"><div class="v">TOP</div><div class="k">Maqsad — 1-o'rin 🥇</div></div>
+      </div>
+      <button class="cta" id="daily-btn">🎁 Kunlik bonus</button>
+      <div class="card" style="padding:16px;margin-top:12px">
+        <div class="muted" style="margin-bottom:8px">Ismni o'zgartirish</div>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="new-name" placeholder="Yangi ism" maxlength="20" style="flex:1;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px">
+          <button class="mini" id="save-name">Saqlash</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><a href="../">← Bosh sahifa</a> · Ayg'oqchi © 2026</footer>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/economy.js"></script>
+<script src="js/app.js"></script>
+<script>
+  /* Profil avatarida ism bosh harfi */
+  (function () {
+    var t = setInterval(function () {
+      var n = document.getElementById('pf-name');
+      var a = document.getElementById('pf-ava');
+      if (n && a && n.textContent && n.textContent !== '…') {
+        a.textContent = n.textContent.trim().charAt(0).toUpperCase();
+      }
+    }, 1000);
+  })();
+</script>
+</body>
+</html>

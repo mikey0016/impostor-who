@@ -8,6 +8,21 @@ impostor-who/
 ├── index.html                            # butun sayt (HTML + CSS + JS, bitta faylda)
 ├── og-image.png                          # Telegram/WhatsApp havola ko'rinishi uchun rasm
 ├── README.md                             # shu fayl
+├── FIREBASE_SETUP.md                     # login/coin uchun 5 daqiqalik sozlash
+├── firestore.rules                       # baza qoidalari (anti-cheat +100)
+├── app/                                  # WEB PLATFORMA (login, coin, market, reyting)
+│   ├── index.html                        # hub: auth + 4 tab (o'yin/market/reyting/profil)
+│   ├── css/app.css                       # hub stillari + market mavzulari
+│   ├── css/game.css                      # o'yin stillari
+│   ├── js/data.js                        # so'zlar bazasi (GameData.kt dan eksport)
+│   ├── js/game.js                        # o'yin dvigateli (+coin hooklar)
+│   ├── js/firebase-config.js             # ← KALITLARNI SHU YERGA (yo'riqnoma: FIREBASE_SETUP.md)
+│   ├── js/auth.js                        # login/register/Google/logout
+│   ├── js/economy.js                     # coin/market/reyting mantiqi
+│   ├── js/app.js                         # hub yelimi (tablar, profil, kunlik bonus)
+│   ├── manifest.webmanifest              # PWA manifesti
+│   ├── sw.js                             # offline service worker
+│   └── icons/                            # PWA ikonkalar
 └── download/
     ├── aygoqchi-v1.0.apk                 # Android (18.9 MB, DEBUG imzo)
     └── aygoqchi-v1.0-ios.ipa             # iOS (11.6 MB, IMZOSIZ — Sideloadly bilan o'rnatiladi)
@@ -142,3 +157,24 @@ Sertifikat barmoq izi (SHA-256):
 
 > ℹ️ PWA versiyasi (brauzerda o'ynash) git tarixida saqlanadi — kerak bo'lsa qaytarish mumkin:
 > `git show <commit>:play/index.html`
+
+---
+
+## 8. Web platforma (app/)
+
+`https://mikey0016.github.io/impostor-who/app/` — to'liq o'yin platformasi:
+**ro'yxat/login** (Email + Google), **coin**, **market** (karta mavzulari, VIP, 2x boost),
+**reyting Top-20**, **profil** (statistika, kunlik bonus).
+
+| | |
+|---|---|
+| Ro'yxat bonusi | +100 coin |
+| O'yin tugashi (REVEAL) | +10 coin |
+| "Ayg'oqchi yutdi" ovozi | +15 coin |
+| "Jamoa yutdi" ovozi | +5 coin |
+| Kunlik bonus | +50 coin (kuniga 1 marta) |
+
+Backend — **Firebase** (bepul Spark tarif): Auth + Firestore.
+Kalitlar hali qo'yilmagan (`app/js/firebase-config.js` da placeholder) —
+5 daqiqalik sozlash: **`FIREBASE_SETUP.md`** ga qarang. Sozlanguncha `app/`
+"Ulanish kerak" ekranini ko'rsatadi, APK/IPA yuklash ishlashda davom etadi.
