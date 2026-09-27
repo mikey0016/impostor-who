@@ -176,7 +176,7 @@
           '<div class="label">GAME MODE</div>' +
           '<div class="card" style="margin-top:8px"><div class="seg">' +
             '<button class="pill' + (S.mode === 'CLASSIC' ? ' active' : '') + '" data-mode="CLASSIC">Classic</button>' +
-            '<button class="pill soon" disabled>Online<small>TEZ ORADA</small></button>' +
+            '<button class="pill' + (S.mode === 'ONLINE' ? ' active' : '') + '" data-mode="ONLINE">Online</button>' +
           '</div></div>' +
         '</div>' +
 
@@ -407,6 +407,10 @@
 
   /* ---------------- render ---------------- */
   function render() {
+    if (S.phase === 'HOME' && S.mode === 'ONLINE' && window.AygOnline) {
+      window.AygOnline.show(app, function () { S.mode = 'CLASSIC'; render(); });
+      return;
+    }
     app.innerHTML = S.phase === 'HOME' ? homeScreen()
       : S.phase === 'EDIT' ? editScreen()
         : S.phase === 'PASS' ? passScreen()

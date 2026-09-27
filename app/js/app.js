@@ -31,9 +31,10 @@
 
   function ensureGame() {
     if (gameLoaded) return Promise.resolve();
-    /* data.js keyin game.js — game.js yuklanishi bilan o'yin #app ga chiziladi */
+    /* data.js keyin game.js keyin online.js — yuklanishi bilan o'yin #app ga chiziladi */
     return loadScript('js/data.js')
       .then(function () { return loadScript('js/game.js'); })
+      .then(function () { return loadScript('js/online.js'); })
       .then(function () { gameLoaded = true; });
   }
 

@@ -217,10 +217,9 @@
   }
   .copy:hover{background:#efefec}
 
-  /* ios note */
-  #ios-note{display:none;margin-bottom:20px}
-  #ios-note .warn{background:#FFF1F0;border-color:#FFD6D3;margin-top:0}
-  #ios-note .warn p{color:#8a2b26}
+  /* web note (iPhone) */
+  #web-note{display:none;margin-bottom:20px}
+  #web-note .warn{margin-top:0}
 
   /* qr */
   .qr{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:24px}
@@ -263,7 +262,7 @@
     <div class="logo"><span class="logo-mark">A</span> AYG'OQCHI</div>
     <span class="spacer"></span>
     <a class="btn-mini ghost" href="#android">📱 Android</a>
-    <a class="btn-mini ghost" href="#ios">🍎 iOS</a>
+    <a class="btn-mini ghost" href="app/">🌐 Web</a>
     <a class="btn-mini" href="download/aygoqchi-v1.0.apk" download type="application/vnd.android.package-archive">⬇ APK</a>
   </div>
 </nav>
@@ -285,25 +284,18 @@
         <span class="lbl"><span>APK YUKLAB OLISH</span><small>18.9 MB · Android 7.0+ · v1.0</small></span>
       </a>
 
-      <a class="btn secondary" href="download/aygoqchi-v1.0-ios.ipa" download="aygoqchi-v1.0-ios.ipa" id="ios-dl">
-        <span style="font-size:22px">🍎</span>
-        <span class="lbl"><span>iOS — IPA YUKLAB OLISH</span><small>11.6 MB · iPhone / iPad · iOS 15+</small></span>
-      </a>
-
       <a class="btn" href="app/" id="web-dl" style="background:#1A1A1A;color:#fff;box-shadow:0 14px 30px rgba(0,0,0,.25);margin-top:12px">
         <span style="font-size:22px">🌐</span>
         <span class="lbl"><span>WEBDA O'YNASH</span><small style="color:#C6F432;opacity:1">Login · coin · market · reyting — o'rnatish shart emas</small></span>
       </a>
 
-      <div id="ios-note">
+      <div id="web-note" style="display:none">
         <div class="warn">
           <div class="em">📱</div>
           <div>
             <h3>Siz iPhone / iPad'dasiz</h3>
-            <p>Bu sahifada <b>iOS uchun .ipa</b> fayl bor — quyidagi <b>“iOS — IPA YUKLAB OLISH”</b> tugmasini bosing.
-               Fayl <b>Fayllar → Yuklamalar</b> jildiga tushadi (brauzerda hech narsa ochilmasa — vahima qilmang, yuklash bo'lgan).
-               Uni telefonga o'rnatish uchun <b>kompyuter (Windows yoki Mac)</b> va bepul Apple ID kerak
-               (Sideloadly dasturi orqali, ~3 daqiqa): <a href="#ios" style="font-weight:800">iOS qo'llanmasi →</a></p>
+            <p>Android ilova iPhone'da o'rnatilmaydi — lekin <b>“WEBDA O'YNASH”</b> tugmasi orqali brauzerda to'liq o'ynay olasiz
+               (login, coin, market, reyting bilan, o'rnatish shart emas).</p>
           </div>
         </div>
       </div>
@@ -385,67 +377,6 @@
   </div>
 </section>
 
-<!-- ============ iOS ============ -->
-<section id="ios">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>iOS'ga o'rnatish</h2>
-      <p>iPhone / iPad uchun · iOS 15+ · Mac shart emas, Windows kompyuter yetarli</p>
-    </div>
-
-    <a class="btn secondary" href="download/aygoqchi-v1.0-ios.ipa" download="aygoqchi-v1.0-ios.ipa"
-       style="margin:0 0 24px;max-width:none">
-      <span style="font-size:22px">🍎</span>
-      <span class="lbl"><span>iOS — IPA YUKLAB OLISH</span><small>11.6 MB · iPhone / iPad (iOS 15+) · v1.0</small></span>
-    </a>
-
-    <div class="steps">
-      <div class="card step">
-        <div class="num">1</div>
-        <div>
-          <h3>Sideloadly o'rnating</h3>
-          <p>Kompyuteringizga <a href="https://sideloadly.io" target="_blank" rel="noopener" style="font-weight:800">Sideloadly</a>
-             (bepul, Windows yoki macOS) dasturini o'rnating. Windows'da iPhone bilan aloqa uchun
-             <b>iTunes</b> (yoki <b>Apple Devices</b>) ham kerak bo'ladi.</p>
-        </div>
-      </div>
-      <div class="card step">
-        <div class="num">2</div>
-        <div>
-          <h3>IPA faylni yuklab oling</h3>
-          <p>Yuqoridagi tugma bilan <code>aygoqchi-v1.0-ios.ipa</code> faylini kompyuterga saqlang.</p>
-        </div>
-      </div>
-      <div class="card step">
-        <div class="num">3</div>
-        <div>
-          <h3>Telefonni ulab, imzolang</h3>
-          <p>Sideloadly'da IPA faylni tanlang, iPhone'ni USB kabel bilan ulang va <b>bepul Apple ID</b>ngizni kiriting → <b>Start</b>.</p>
-        </div>
-      </div>
-      <div class="card step">
-        <div class="num">4</div>
-        <div>
-          <h3>Ishonchli deb belgilang</h3>
-          <p>Telefonda: <b>Sozlamalar → Umumiy → VPN va qurilma boshqaruvi</b> → Apple ID'ngizni <b>ishonchli</b>
-             deb belgilang. So'ng ilovani ochib o'ynang!</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="warn">
-      <div class="em">🍎</div>
-      <div>
-        <h3>Bepul Apple ID'da ilova 7 kun ishlaydi</h3>
-        <p>Bu Apple'ning cheklovi: bepul akkaunt bilan imzolangan ilova <b>7 kundan keyin</b> ochilmaydi —
-           Sideloadly'da qayta “Start” bosish kifoya (o'yin sozlamalaringiz saqlanib qoladi).
-           Muddat cheklovisiz o'rnatish uchun <b>Apple Developer Program</b> ($99/yil) kerak —
-           App Store varianti keyinchalik qo'shiladi.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ FEATURES ============ -->
 <section>
   <div class="wrap">
@@ -462,7 +393,7 @@
       <div class="card feat"><div class="em">🎨</div><h3>Chiroyli va silliq</h3><p>Gradient kartalar, animatsiyalar, “bosib ushlab ko'rish” mexanikasi.</p></div>
       <div class="card feat"><div class="em">💾</div><h3>Sozlamalar saqlanadi</h3><p>O'yinchilar ro'yxati va tanlovingiz eslab qolinadi — har safar qaytadan yozmaysiz.</p></div>
       <div class="card feat"><div class="em">🚫</div><h3>Reklama yo'q, to'lov yo'q</h3><p>Bepul. Hisob yaratish, ro'yxatdan o'tish, internet talab qilinmaydi.</p></div>
-      <div class="card feat"><div class="em">🍎</div><h3>iOS uchun ham</h3><p>iPhone va iPad uchun .ipa fayl — Windows yoki Mac'dagi Sideloadly bilan o'rnatiladi. <a href="#ios" style="font-weight:800">Qo'llanma →</a></p></div>
+      <div class="card feat"><div class="em">🌐</div><h3>Web'da ham</h3><p>Brauzerda o'ynash — login, coin, market va reyting bilan. <a href="app/" style="font-weight:800">O'ynash →</a></p></div>
     </div>
   </div>
 </section>
@@ -501,11 +432,8 @@
       </details>
       <details>
         <summary>iPhone'da ishlaydimi?</summary>
-        <p><b>Ha</b> — iOS uchun <a href="download/aygoqchi-v1.0-ios.ipa" download="aygoqchi-v1.0-ios.ipa" style="font-weight:800">.ipa fayl</a> bor.
-           Uni kompyuterdan <b>Sideloadly</b> (bepul, Windows/Mac) orqali o'rnatasiz: iPhone'ni USB bilan ulab,
-           faylni tanlaysiz va bepul Apple ID bilan imzolaysiz. Bepul akkauntda ilova <b>7 kun</b> ishlaydi,
-           keyin qayta imzolash kerak. App Store varianti uchun Apple Developer ($99/yil) kerak.
-           Batafsil: <a href="#ios" style="font-weight:800">iOS qo'llanmasi</a>.</p>
+        <p><b>Ha</b> — iPhone/iPad'da yuqoridagi <b>“WEBDA O'YNASH”</b> tugmasi orqali brauzerda o'ynang
+           (login, coin, market, reyting — o'rnatish shart emas). Android ilova faqat Android telefonlarda o'rnatiladi.</p>
       </details>
       <details>
         <summary>Qaysi Android versiyalarda ishlaydi?</summary>
@@ -541,14 +469,9 @@
 </footer>
 
 <div class="mobilebar">
-  <div style="display:flex;gap:10px">
-    <a class="btn" id="mob-dl" href="download/aygoqchi-v1.0.apk" download="aygoqchi-v1.0.apk" type="application/vnd.android.package-archive" style="max-width:none">
-      ⬇ Android · 18.9 MB
-    </a>
-    <a class="btn secondary" id="mob-ios" href="download/aygoqchi-v1.0-ios.ipa" download="aygoqchi-v1.0-ios.ipa" style="max-width:none;margin-top:0;border-width:2px">
-      🍎 iOS · 11.6 MB
-    </a>
-  </div>
+  <a class="btn" id="mob-dl" href="download/aygoqchi-v1.0.apk" download="aygoqchi-v1.0.apk" type="application/vnd.android.package-archive" style="max-width:none">
+    ⬇ Android · 18.9 MB
+  </a>
 </div>
 
 <script>
@@ -559,24 +482,9 @@
   var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
 
-  // iPhone foydalanuvchisiga ogohlantirish
+  // iPhone foydalanuvchisiga web o'yinni tavsiya qilamiz
   if (isIOS) {
-    // iPhone'da APK o'rnatilmaydi — hero tugmani iOS .ipa faylga o'tkazamiz,
-    // pastdagi mobil paneldagi takroriy Android tugmani esa yashiramiz
-    document.getElementById('ios-note').style.display = 'block';
-    var ipa = 'download/aygoqchi-v1.0-ios.ipa';
-    var mainEl = document.getElementById('main-dl');
-    if (mainEl) {
-      mainEl.setAttribute('href', ipa);
-      mainEl.setAttribute('download', 'aygoqchi-v1.0-ios.ipa');
-      mainEl.removeAttribute('type');
-      var lbl = mainEl.querySelector('.lbl span');
-      var sub = mainEl.querySelector('small');
-      if (lbl) lbl.textContent = "IOS — IPA YUKLAB OLISH";
-      if (sub) sub.textContent = "11.6 MB · iPhone / iPad · iOS 15+";
-    }
-    var mobEl = document.getElementById('mob-dl');
-    if (mobEl) mobEl.style.display = 'none';
+    document.getElementById('web-note').style.display = 'block';
   }
 
   // Android foydalanuvchisi uchun "tayyor" holati
