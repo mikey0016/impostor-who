@@ -285,7 +285,7 @@
         <span class="lbl"><span>APK YUKLAB OLISH</span><small>18.9 MB · Android 7.0+ · v1.0</small></span>
       </a>
 
-      <a class="btn secondary" href="download/impostor-who-v1.0-ios.ipa" download id="ios-dl">
+      <a class="btn secondary" href="download/impostor-who-v1.0-ios.ipa" download="impostor-who-v1.0-ios.ipa" id="ios-dl">
         <span style="font-size:22px">🍎</span>
         <span class="lbl"><span>iOS — IPA YUKLAB OLISH</span><small>11.6 MB · iPhone / iPad · iOS 15+</small></span>
       </a>
@@ -296,6 +296,7 @@
           <div>
             <h3>Siz iPhone / iPad'dasiz</h3>
             <p>Bu sahifada <b>iOS uchun .ipa</b> fayl bor — quyidagi <b>“iOS — IPA YUKLAB OLISH”</b> tugmasini bosing.
+               Fayl <b>Fayllar → Yuklamalar</b> jildiga tushadi (brauzerda hech narsa ochilmasa — vahima qilmang, yuklash bo'lgan).
                Uni telefonga o'rnatish uchun <b>kompyuter (Windows yoki Mac)</b> va bepul Apple ID kerak
                (Sideloadly dasturi orqali, ~3 daqiqa): <a href="#ios" style="font-weight:800">iOS qo'llanmasi →</a></p>
           </div>
@@ -387,7 +388,7 @@
       <p>iPhone / iPad uchun · iOS 15+ · Mac shart emas, Windows kompyuter yetarli</p>
     </div>
 
-    <a class="btn secondary" href="download/impostor-who-v1.0-ios.ipa" download
+    <a class="btn secondary" href="download/impostor-who-v1.0-ios.ipa" download="impostor-who-v1.0-ios.ipa"
        style="margin:0 0 24px;max-width:none">
       <span style="font-size:22px">🍎</span>
       <span class="lbl"><span>iOS — IPA YUKLAB OLISH</span><small>11.6 MB · iPhone / iPad (iOS 15+) · v1.0</small></span>
@@ -495,7 +496,7 @@
       </details>
       <details>
         <summary>iPhone'da ishlaydimi?</summary>
-        <p><b>Ha</b> — iOS uchun <a href="download/impostor-who-v1.0-ios.ipa" download style="font-weight:800">.ipa fayl</a> bor.
+        <p><b>Ha</b> — iOS uchun <a href="download/impostor-who-v1.0-ios.ipa" download="impostor-who-v1.0-ios.ipa" style="font-weight:800">.ipa fayl</a> bor.
            Uni kompyuterdan <b>Sideloadly</b> (bepul, Windows/Mac) orqali o'rnatasiz: iPhone'ni USB bilan ulab,
            faylni tanlaysiz va bepul Apple ID bilan imzolaysiz. Bepul akkauntda ilova <b>7 kun</b> ishlaydi,
            keyin qayta imzolash kerak. App Store varianti uchun Apple Developer ($99/yil) kerak.
@@ -539,7 +540,7 @@
     <a class="btn" id="mob-dl" href="download/impostor-who-v1.0.apk" download="impostor-who-v1.0.apk" type="application/vnd.android.package-archive" style="max-width:none">
       ⬇ Android · 18.9 MB
     </a>
-    <a class="btn secondary" id="mob-ios" href="download/impostor-who-v1.0-ios.ipa" download style="max-width:none;margin-top:0;border-width:2px">
+    <a class="btn secondary" id="mob-ios" href="download/impostor-who-v1.0-ios.ipa" download="impostor-who-v1.0-ios.ipa" style="max-width:none;margin-top:0;border-width:2px">
       🍎 iOS · 11.6 MB
     </a>
   </div>
@@ -555,24 +556,22 @@
 
   // iPhone foydalanuvchisiga ogohlantirish
   if (isIOS) {
-    // iPhone'da APK o'rnatilmaydi — asosiy tugmani iOS .ipa faylga o'tkazamiz
+    // iPhone'da APK o'rnatilmaydi — hero tugmani iOS .ipa faylga o'tkazamiz,
+    // pastdagi mobil paneldagi takroriy Android tugmani esa yashiramiz
     document.getElementById('ios-note').style.display = 'block';
     var ipa = 'download/impostor-who-v1.0-ios.ipa';
-    ['main-dl', 'mob-dl'].forEach(function (elId) {
-      var el = document.getElementById(elId);
-      if (!el) return;
-      el.setAttribute('href', ipa);
-      el.setAttribute('download', 'impostor-who-v1.0-ios.ipa');
-      el.removeAttribute('type');
-      var lbl = el.querySelector('.lbl span');
-      var sub = el.querySelector('small');
-      if (lbl) {
-        lbl.textContent = "IOS — IPA YUKLAB OLISH";
-        if (sub) sub.textContent = "11.6 MB · iPhone / iPad · iOS 15+";
-      } else {
-        el.textContent = "🍎 iOS · 11.6 MB";
-      }
-    });
+    var mainEl = document.getElementById('main-dl');
+    if (mainEl) {
+      mainEl.setAttribute('href', ipa);
+      mainEl.setAttribute('download', 'impostor-who-v1.0-ios.ipa');
+      mainEl.removeAttribute('type');
+      var lbl = mainEl.querySelector('.lbl span');
+      var sub = mainEl.querySelector('small');
+      if (lbl) lbl.textContent = "IOS — IPA YUKLAB OLISH";
+      if (sub) sub.textContent = "11.6 MB · iPhone / iPad · iOS 15+";
+    }
+    var mobEl = document.getElementById('mob-dl');
+    if (mobEl) mobEl.style.display = 'none';
   }
 
   // Android foydalanuvchisi uchun "tayyor" holati
