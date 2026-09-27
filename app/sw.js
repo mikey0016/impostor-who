@@ -3,7 +3,7 @@
    Rasmlar uchun: cache-first.
    Yangi versiya chiqqanda CACHE nomini oshiring. */
 
-var CACHE = 'aygoqchi-app-v1';
+var CACHE = 'aygoqchi-app-v2';
 
 var ASSETS = [
   './',
@@ -13,6 +13,7 @@ var ASSETS = [
   'css/app.css',
   'js/data.js',
   'js/game.js',
+  'js/online.js',
   'js/firebase-config.js',
   'js/auth.js',
   'js/economy.js',
